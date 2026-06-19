@@ -122,6 +122,71 @@ Authorization: Bearer {token}
 
 ---
 
+---
+
+### Endpoint
+
+GET /items?category_id={id}
+
+### Header
+
+Authorization: Bearer {token}
+
+### Query Parameter
+
+| Parameter   | Tipe    | Keterangan                       |
+| ----------- | ------- | -------------------------------- |
+| category_id | integer | Filter item berdasarkan kategori |
+
+### Request Example
+
+```http
+GET /items?category_id=1
+```
+
+### Success Response
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "Laptop",
+      "price": "10000000.00",
+      "category_id": 1
+    },
+    {
+      "id": 2,
+      "name": "Mouse",
+      "price": "150000.00",
+      "category_id": 1
+    }
+  ],
+  "message": "Berhasil mengambil semua data item"
+}
+```
+
+### Empty Response
+
+```json
+{
+  "success": true,
+  "data": [],
+  "message": "Berhasil mengambil semua data item"
+}
+```
+
+### Behavior
+
+* Tanpa parameter → menampilkan semua item
+* category_id=1 → menampilkan Laptop dan Mouse
+* category_id=2 → menampilkan Keyboard dan Monitor
+* category_id=999 → data kosong (`[]`)
+
+---
+
+
 ## Create Item
 
 ### Endpoint

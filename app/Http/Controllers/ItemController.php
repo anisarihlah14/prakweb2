@@ -6,6 +6,7 @@ use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Services\ItemService;
 use App\Http\Controllers\Api\BaseController;
+use Illuminate\Http\Request;
 
 class ItemController extends BaseController
 {
@@ -19,11 +20,20 @@ class ItemController extends BaseController
     /**
      * GET /api/v1/items
      */
-    public function index()
-    {
-        return $this->success(
-            $this->itemService->all(),
-            'Berhasil mengambil semua data item'
+   public function index(Request $request)
+{
+    $items = $this->itemService->all();
+
+    if ($request->filled('category_id')) {
+        $items = $items->where(
+            'category_id',
+            $request->category_id
+        )->values();
+    }
+
+    return $this->success(
+        $items,
+        'Berhasil mengambil semua data item'
         );
     }
 
